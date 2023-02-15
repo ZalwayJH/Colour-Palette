@@ -15,6 +15,7 @@ import ColorPicker, {
 } from "reanimated-color-picker";
 import * as API from "../api";
 import Colour from "./Colour";
+import SchemeOptions from "./SchemeOptions";
 
 const Main = () => {
   const [colour, setColour] = useState("0400FF");
@@ -23,6 +24,8 @@ const Main = () => {
   const [loading, setLoading] = useState(true);
   const [openned, setOpenned] = useState(true);
   const [schemeOpenned, setSchemeOpenned] = useState(false);
+  const [optionsOpen, setOptionsOpen] = useState(false);
+  const [schemeSetting, setSchemeSetting] = useState("&mode=analogic");
 
   const onSelectColour = ({ hex }) => {
     setHex(hex.slice(1));
@@ -37,20 +40,20 @@ const Main = () => {
           setLoading(false);
         })
         .catch((err) => {
-          alert("Error: Network error, please wait and try again");
+          alert("Network error, please wait and try again");
         });
     }
   }, [colour, openned]);
 
   useEffect(() => {
     if (schemeOpenned === true) {
-      API.getSchemes(colour)
+      API.getSchemes(colour, schemeSetting)
         .then(({ data }) => {
           const schemes = [data];
           setColourInfo(schemes);
         })
         .catch((err) => {
-          alert("Error: Server error, please wait and try again");
+          alert("Network error, please wait and try again");
         });
     }
   }, [schemeOpenned]);
@@ -58,15 +61,29 @@ const Main = () => {
   return (
     <View style={styles.container}>
       {loading ? <Text>Loading</Text> : <Colour colourInfo={colourInfo} />}
-      <TouchableOpacity
-        style={styles.schemeButton}
-        onPress={() => {
-          setSchemeOpenned(!schemeOpenned);
-          setOpenned(!openned);
-        }}
-      >
-        <Text>Schemes</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.schemeButton}
+          onPress={() => {
+            setSchemeOpenned(!schemeOpenned);
+            setOpenned(!openned);
+          }}
+        >
+          <Text>Scheme</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.schemeOptionsButton}
+          onPress={() => {
+            setOptionsOpen(!optionsOpen);
+          }}
+        >
+          <Text>Options</Text>
+        </TouchableOpacity>
+        <SchemeOptions
+          optionsOpen={optionsOpen}
+          setOptionsOpen={setOptionsOpen}
+        />
+      </View>
       <ColorPicker
         style={styles.colourPicker}
         sliderThickness={30}
@@ -117,6 +134,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 0,
     paddingBottom: 0,
+    marginTop: 50,
   },
   sliders: {
     borderRadius: 15,
@@ -155,8 +173,29 @@ const styles = StyleSheet.create({
     height: 30,
     justifyContent: "center",
     alignItems: "center",
-    alignSelf: "center",
-    marginTop: 120,
+    marginTop: 20,
     borderRadius: 15,
+  },
+  schemeOptionsButton: {
+    backgroundColor: "white",
+    width: 100,
+    margin: "auto",
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
+    borderRadius: 15,
+    marginLeft: 20,
+  },
+  buttonContainer: {
+    flex: 0,
+    height: 70,
+    top: 80,
+    marginTop: 25,
+    width: 350,
+    margin: "auto",
+    justifyContent: "center",
+    alignSelf: "center",
+    flexDirection: "row",
   },
 });

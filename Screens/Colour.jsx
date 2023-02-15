@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { Svg, Rect } from "react-native-svg";
-import React, { useEffect, useState } from "react";
+
+import React from "react";
 
 const Colour = ({ colourInfo }) => {
   const colourData = [];
@@ -10,21 +10,20 @@ const Colour = ({ colourInfo }) => {
   if (!colourInfo[0].hasOwnProperty("seed")) {
     colourCardHeight = 334;
     colourInfo.map((element) => {
-      luminVal.push(element.hsl.l);
-
+      luminVal.push(element.contrast.value);
       colourData.push({
         [element.name.value]: element.hex.value,
       });
     });
   } else if (colourInfo[0].hasOwnProperty("seed")) {
     colourCardHeight = 70;
-    luminVal.push(colourInfo[0].seed.hsl.l);
+    luminVal.push(colourInfo[0].seed.contrast.value);
     colourData.push({
       [colourInfo[0].seed.name.value]: colourInfo[0].seed.hex.value,
     });
     colourInfo.forEach((element) => {
       element.colors.map((item) => {
-        luminVal.push(item.hsl.l);
+        luminVal.push(item.contrast.value);
         colourData.push({
           [item.name.value]: item.hex.value,
         });
@@ -54,10 +53,7 @@ const Colour = ({ colourInfo }) => {
               <Text
                 style={{
                   ...styles.colourSpec,
-                  color:
-                    luminVal[index] <= 48
-                      ? "rgba(255,255,255, 0.8)"
-                      : "rgba(20,20,20, 0.8)",
+                  color: luminVal[index],
                 }}
               >
                 {colourName}
@@ -65,10 +61,7 @@ const Colour = ({ colourInfo }) => {
               <Text
                 style={{
                   ...styles.colourSpec,
-                  color:
-                    luminVal[index] <= 48
-                      ? "rgba(255,255,255, 0.5)"
-                      : "rgba(80,80,80, 0.8)",
+                  color: luminVal[index],
                 }}
               >
                 {hexVal}
@@ -87,7 +80,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     margin: "auto",
-    backgroundColor: "white",
+
     width: 350,
     alignSelf: "center",
     justifyContent: "center",
