@@ -2,11 +2,14 @@ import { StyleSheet, Text, View, TouchableOpacity, Switch } from "react-native";
 import { useState, useEffect } from "react";
 import Modal from "react-native-modal";
 import React from "react";
+import Switches from "./Switches";
+import { set } from "react-native-reanimated";
 
-const SchemeOptions = ({ optionsOpen, setOptionsOpen }) => {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-
+const SchemeOptions = ({ optionsOpen, setOptionsOpen, setSchemeSetting }) => {
+  const [monochrome, setMonochrome] = useState(false);
+  const [analogic, setAnalogic] = useState(true);
+  const [complement, setComplement] = useState(false);
+  const [analogicComplement, setAnalogicComplement] = useState(false);
   return (
     <View>
       <Modal
@@ -15,14 +18,21 @@ const SchemeOptions = ({ optionsOpen, setOptionsOpen }) => {
         animationIn="slideInRight"
         animationOut="slideOutRight"
         backdropTransitionOutTiming={0}
+        onBackButtonPress={() => {
+          setOptionsOpen(false);
+        }}
       >
         <View style={styles.optionsModal}>
-          <Switch
-            trackColor={{ false: "#767577", true: "#81b0ff" }}
-            thumbColor={isEnabled ? "blue" : "#f4f3f4"}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
+          <Switches
+            setSchemeSetting={setSchemeSetting}
+            monochrome={monochrome}
+            setMonochrome={setMonochrome}
+            analogic={analogic}
+            setAnalogic={setAnalogic}
+            complement={complement}
+            setComplement={setComplement}
+            analogicComplement={analogicComplement}
+            setAnalogicComplement={setAnalogicComplement}
           />
         </View>
         <TouchableOpacity
@@ -60,10 +70,12 @@ const styles = StyleSheet.create({
   },
   optionsModal: {
     flex: 0,
-    backgroundColor: "white",
+    backgroundColor: "rgba(75, 75, 75, 1)",
+    blurRadius: 50,
     height: 250,
     width: 350,
     borderRadius: 15,
+    opacity: 0.9,
   },
   closeButton: {
     backgroundColor: "white",

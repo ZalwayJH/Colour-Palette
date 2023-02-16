@@ -56,7 +56,7 @@ const Main = () => {
           alert("Network error, please wait and try again");
         });
     }
-  }, [schemeOpenned]);
+  }, [schemeOpenned, schemeSetting]);
 
   return (
     <View style={styles.container}>
@@ -82,6 +82,8 @@ const Main = () => {
         <SchemeOptions
           optionsOpen={optionsOpen}
           setOptionsOpen={setOptionsOpen}
+          schemeSetting={schemeSetting}
+          setSchemeSetting={setSchemeSetting}
         />
       </View>
       <ColorPicker
