@@ -17,10 +17,6 @@ const Colour = ({ colourInfo }) => {
     });
   } else if (colourInfo[0].hasOwnProperty("seed")) {
     colourCardHeight = 70;
-    luminVal.push(colourInfo[0].seed.contrast.value);
-    colourData.push({
-      [colourInfo[0].seed.name.value]: colourInfo[0].seed.hex.value,
-    });
     colourInfo.forEach((element) => {
       element.colors.map((item) => {
         luminVal.push(item.contrast.value);

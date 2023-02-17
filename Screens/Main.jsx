@@ -12,6 +12,7 @@ import ColorPicker, {
   BrightnessSlider,
   HueSlider,
   SaturationSlider,
+  colorKit,
 } from "reanimated-color-picker";
 import * as API from "../api";
 import Colour from "./Colour";
@@ -26,6 +27,7 @@ const Main = () => {
   const [schemeOpenned, setSchemeOpenned] = useState(false);
   const [optionsOpen, setOptionsOpen] = useState(false);
   const [schemeSetting, setSchemeSetting] = useState("&mode=analogic");
+  const [randomColour, setRandomColour] = useState(false);
 
   const onSelectColour = ({ hex }) => {
     setHex(hex.slice(1));
@@ -56,12 +58,21 @@ const Main = () => {
           alert("Network error, please wait and try again");
         });
     }
-  }, [schemeOpenned, schemeSetting]);
+  }, [schemeOpenned, schemeSetting, randomColour]);
 
   return (
     <View style={styles.container}>
       {loading ? <Text>Loading</Text> : <Colour colourInfo={colourInfo} />}
       <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.schemeButton}
+          onPress={() => {
+            setColour(colorKit.randomRgbColor().hex().slice(1));
+            setRandomColour(!randomColour);
+          }}
+        >
+          <Text>Random Colour</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           style={styles.schemeButton}
           onPress={() => {
@@ -72,7 +83,7 @@ const Main = () => {
           <Text>Scheme</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.schemeOptionsButton}
+          style={styles.schemeButton}
           onPress={() => {
             setOptionsOpen(!optionsOpen);
           }}
@@ -177,6 +188,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 20,
     borderRadius: 15,
+    margin: 5,
   },
   schemeOptionsButton: {
     backgroundColor: "white",

@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import Modal from "react-native-modal";
 import React from "react";
 import Switches from "./Switches";
-import { set } from "react-native-reanimated";
 
 const SchemeOptions = ({ optionsOpen, setOptionsOpen, setSchemeSetting }) => {
   const [monochrome, setMonochrome] = useState(false);
@@ -13,7 +12,7 @@ const SchemeOptions = ({ optionsOpen, setOptionsOpen, setSchemeSetting }) => {
   return (
     <View>
       <Modal
-        style={{ justifyContent: "center", alignItems: "center" }}
+        style={{ justifyContent: "center", alignItems: "center", top: 160 }}
         isVisible={optionsOpen}
         animationIn="slideInRight"
         animationOut="slideOutRight"
@@ -21,6 +20,7 @@ const SchemeOptions = ({ optionsOpen, setOptionsOpen, setSchemeSetting }) => {
         onBackButtonPress={() => {
           setOptionsOpen(false);
         }}
+        backdropOpacity={0.3}
       >
         <View style={styles.optionsModal}>
           <Switches
@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
     height: 250,
     width: 350,
     borderRadius: 15,
-    opacity: 0.9,
   },
   closeButton: {
     backgroundColor: "white",
@@ -84,7 +83,7 @@ const styles = StyleSheet.create({
     height: 30,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: 10,
     borderRadius: 15,
   },
 });

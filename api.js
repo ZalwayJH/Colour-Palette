@@ -18,7 +18,7 @@ export function getColours(colour) {
 
 export function getSchemes(colours, setting) {
   return api
-    .get(`https://www.thecolorapi.com/scheme?hex=${colours}${setting}&count=4`)
+    .get(`https://www.thecolorapi.com/scheme?hex=${colours}${setting}&count=5`)
     .then((data) => {
       return data;
     })
