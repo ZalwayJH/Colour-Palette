@@ -15,7 +15,6 @@ export default Save;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#383454",
     margin: "auto",
   },
   saveButton: {
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    bottom: 40,
+    bottom: 10,
     borderRadius: 15,
   },
 });

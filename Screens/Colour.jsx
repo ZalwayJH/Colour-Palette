@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
 import Modal from "react-native-modal";
 import React, { useState } from "react";
 import ColourCardInfo from "./ColourCardInfo";
@@ -44,7 +50,7 @@ const Colour = ({ colourInfo }) => {
         onBackdropPress={() => {
           setInfoCardVisibility(false);
         }}
-        backdropOpacity={0.3}
+        backdropOpacity={0.7}
       >
         <View
           style={{
@@ -70,7 +76,7 @@ const Colour = ({ colourInfo }) => {
               flex: 1,
             }}
           >
-            <TouchableOpacity
+            <Pressable
               onPress={() => {
                 setInfoCardVisibility(true);
                 setSelectedCard(hexVal[0]);
@@ -100,7 +106,7 @@ const Colour = ({ colourInfo }) => {
                   {hexVal}
                 </Text>
               </View>
-            </TouchableOpacity>
+            </Pressable>
           </View>
         );
       })}
@@ -127,11 +133,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     justifyContent: "center",
-    width: 350,
-    borderColor: "white",
+    width: 380,
+    borderColor: "rgba(255,255,255, 1)",
     borderWidth: 1,
-    borderLeftWidth: 0,
-    borderRightWidth: 0,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   colourSpec: {
     alignSelf: "center",

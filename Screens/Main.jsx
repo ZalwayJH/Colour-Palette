@@ -18,6 +18,7 @@ import * as API from "../api";
 import Colour from "./Colour";
 import SchemeOptions from "./SchemeOptions";
 import Loading from "./Loading";
+import { LinearGradient } from "expo-linear-gradient";
 
 const Main = () => {
   const [colour, setColour] = useState("0400FF");
@@ -63,6 +64,16 @@ const Main = () => {
 
   return (
     <View style={styles.container}>
+      <LinearGradient
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          top: 0,
+          height: 900,
+        }}
+        colors={["#242436", "transparent"]}
+      />
       {loading ? (
         <Loading loading={loading} />
       ) : (
@@ -79,6 +90,7 @@ const Main = () => {
         >
           <Text>Random</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           accessibilityLabel="button for viewing schemes"
           style={styles.schemeButton}
@@ -113,38 +125,58 @@ const Main = () => {
         value="blue"
         onComplete={onSelectColour}
       >
-        <TouchableOpacity
-          accessibilityLabel="button for locking in selected colour"
-          onPress={() => {
-            setColour(HEX);
-            setOpenned(true);
-            setSchemeOpenned(false);
+        <View
+          style={{
+            justifyContent: "center",
+            backgroundColor: "rgba(83, 85, 92, 1)",
+            paddingLeft: 20,
+            paddingRight: 20,
+            width: 380,
+            alignSelf: "center",
+            borderRadius: 15,
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 2,
+            },
+            shadowOpacity: 0.25,
+            shadowRadius: 3.84,
+
+            elevation: 5,
           }}
         >
-          <Text style={{ alignSelf: "center", color: "white" }}>
-            Press Here to lock in colour
-          </Text>
-          <Preview
-            style={[styles.previewStyle, styles.shadow]}
-            colorFormat="none"
-            hideInitialColor
+          <TouchableOpacity
+            accessibilityLabel="button for locking in selected colour"
+            onPress={() => {
+              setColour(HEX);
+              setOpenned(true);
+              setSchemeOpenned(false);
+            }}
+          >
+            <Text style={{ alignSelf: "center", color: "white" }}>
+              Press Here to lock in colour
+            </Text>
+            <Preview
+              style={[styles.previewStyle, styles.shadow]}
+              colorFormat="none"
+              hideInitialColor
+            />
+          </TouchableOpacity>
+          <HueSlider
+            accessibilityLabel="colour slider"
+            style={[styles.sliders, styles.shadow]}
           />
-        </TouchableOpacity>
-        <HueSlider
-          accessibilityLabel="colour slider"
-          style={[styles.sliders, styles.shadow]}
-        />
-        <BrightnessSlider
-          accessibilityLabel="brightness slider"
-          style={[styles.sliders, styles.shadow]}
-        />
-        <SaturationSlider
-          accessibilityLabel="saturation slider"
-          style={[styles.sliders, styles.shadow]}
-        />
+          <BrightnessSlider
+            accessibilityLabel="brightness slider"
+            style={[styles.sliders, styles.shadow]}
+          />
+          <SaturationSlider
+            accessibilityLabel="saturation slider"
+            style={[styles.sliders, styles.shadow]}
+          />
+          <Save />
+        </View>
       </ColorPicker>
-
-      <Save />
     </View>
   );
 };
@@ -154,11 +186,10 @@ export default Main;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#383454",
     paddingBottom: 0,
     width: "100%",
-    maxWidth: 500,
     margin: "auto",
+    backgroundColor: "#14142b",
   },
   colourPicker: {
     width: "75%",
@@ -180,6 +211,7 @@ const styles = StyleSheet.create({
     height: 55,
     borderRadius: 50,
     marginBottom: 30,
+    borderColor: "white",
   },
   shadow: {
     shadowColor: "#000",
