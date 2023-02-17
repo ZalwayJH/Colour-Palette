@@ -17,6 +17,7 @@ import ColorPicker, {
 import * as API from "../api";
 import Colour from "./Colour";
 import SchemeOptions from "./SchemeOptions";
+import Loading from "./Loading";
 
 const Main = () => {
   const [colour, setColour] = useState("0400FF");
@@ -62,18 +63,24 @@ const Main = () => {
 
   return (
     <View style={styles.container}>
-      {loading ? <Text>Loading</Text> : <Colour colourInfo={colourInfo} />}
+      {loading ? (
+        <Loading loading={loading} />
+      ) : (
+        <Colour colourInfo={colourInfo} />
+      )}
       <View style={styles.buttonContainer}>
         <TouchableOpacity
+          accessibilityLabel="Random colour button"
           style={styles.schemeButton}
           onPress={() => {
             setColour(colorKit.randomRgbColor().hex().slice(1));
             setRandomColour(!randomColour);
           }}
         >
-          <Text>Random Colour</Text>
+          <Text>Random</Text>
         </TouchableOpacity>
         <TouchableOpacity
+          accessibilityLabel="button for viewing schemes"
           style={styles.schemeButton}
           onPress={() => {
             setSchemeOpenned(!schemeOpenned);
@@ -83,6 +90,7 @@ const Main = () => {
           <Text>Scheme</Text>
         </TouchableOpacity>
         <TouchableOpacity
+          accessibilityLabel="button for scheme options"
           style={styles.schemeButton}
           onPress={() => {
             setOptionsOpen(!optionsOpen);
@@ -106,6 +114,7 @@ const Main = () => {
         onComplete={onSelectColour}
       >
         <TouchableOpacity
+          accessibilityLabel="button for locking in selected colour"
           onPress={() => {
             setColour(HEX);
             setOpenned(true);
@@ -121,9 +130,18 @@ const Main = () => {
             hideInitialColor
           />
         </TouchableOpacity>
-        <HueSlider style={[styles.sliders, styles.shadow]} />
-        <BrightnessSlider style={[styles.sliders, styles.shadow]} />
-        <SaturationSlider style={[styles.sliders, styles.shadow]} />
+        <HueSlider
+          accessibilityLabel="colour slider"
+          style={[styles.sliders, styles.shadow]}
+        />
+        <BrightnessSlider
+          accessibilityLabel="brightness slider"
+          style={[styles.sliders, styles.shadow]}
+        />
+        <SaturationSlider
+          accessibilityLabel="saturation slider"
+          style={[styles.sliders, styles.shadow]}
+        />
       </ColorPicker>
 
       <Save />

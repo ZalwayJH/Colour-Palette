@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
   optionsModal: {
     flex: 0,
     backgroundColor: "rgba(75, 75, 75, 1)",
-    blurRadius: 50,
     height: 250,
     width: 350,
     borderRadius: 15,

@@ -1,8 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-
-import React from "react";
+import Modal from "react-native-modal";
+import React, { useState } from "react";
+import ColourCardInfo from "./ColourCardInfo";
 
 const Colour = ({ colourInfo }) => {
+  const [infoCardVisibility, setInfoCardVisibility] = useState(false);
+  const [selectedCard, setSelectedCard] = useState("");
   const colourData = [];
   const luminVal = [];
   let colourCardHeight = 0;
@@ -29,6 +32,34 @@ const Colour = ({ colourInfo }) => {
 
   return (
     <View style={styles.container}>
+      <Modal
+        style={{ justifyContent: "center", alignItems: "center" }}
+        isVisible={infoCardVisibility}
+        animationIn="fadeIn"
+        animationOut="fadeOut"
+        backdropTransitionOutTiming={0}
+        onBackButtonPress={() => {
+          setInfoCardVisibility(false);
+        }}
+        onBackdropPress={() => {
+          setInfoCardVisibility(false);
+        }}
+        backdropOpacity={0.3}
+      >
+        <View
+          style={{
+            flex: 0,
+            backgroundColor: "white",
+            height: 350,
+            width: 350,
+            borderRadius: 2,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <ColourCardInfo selectedCard={selectedCard} colourInfo={colourInfo} />
+        </View>
+      </Modal>
       {colourData.map((colour, index) => {
         const colourName = Object.keys(colour);
         const hexVal = Object.values(colour);
@@ -39,30 +70,37 @@ const Colour = ({ colourInfo }) => {
               flex: 1,
             }}
           >
-            <View
-              style={{
-                ...styles.colourCard,
-                backgroundColor: hexVal[0],
-                height: colourCardHeight,
+            <TouchableOpacity
+              onPress={() => {
+                setInfoCardVisibility(true);
+                setSelectedCard(hexVal[0]);
               }}
             >
-              <Text
+              <View
                 style={{
-                  ...styles.colourSpec,
-                  color: luminVal[index],
+                  ...styles.colourCard,
+                  backgroundColor: hexVal[0],
+                  height: colourCardHeight,
                 }}
               >
-                {colourName}
-              </Text>
-              <Text
-                style={{
-                  ...styles.colourSpec,
-                  color: luminVal[index],
-                }}
-              >
-                {hexVal}
-              </Text>
-            </View>
+                <Text
+                  style={{
+                    ...styles.colourSpec,
+                    color: luminVal[index],
+                  }}
+                >
+                  {colourName}
+                </Text>
+                <Text
+                  style={{
+                    ...styles.colourSpec,
+                    color: luminVal[index],
+                  }}
+                >
+                  {hexVal}
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         );
       })}
