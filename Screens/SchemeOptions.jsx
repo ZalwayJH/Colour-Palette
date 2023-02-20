@@ -42,7 +42,7 @@ const SchemeOptions = ({ optionsOpen, setOptionsOpen, setSchemeSetting }) => {
           }}
         >
           <View>
-            <Text>Close</Text>
+            <Text>Back</Text>
           </View>
         </TouchableOpacity>
       </Modal>

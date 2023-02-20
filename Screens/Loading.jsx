@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
+    marginBottom: 80,
   },
   background: {
     width: "100%",

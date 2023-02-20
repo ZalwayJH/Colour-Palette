@@ -15,13 +15,16 @@ import ColorPicker, {
   SaturationSlider,
   colorKit,
 } from "reanimated-color-picker";
+import Ionicons from "@expo/vector-icons/Ionicons";
+
+import { FontAwesome5 } from "@expo/vector-icons";
+
 import * as API from "../api";
 import Colour from "./Colour";
 import SchemeOptions from "./SchemeOptions";
 import Loading from "./Loading";
 import Search from "./Search";
 import ApplyRevert from "./ApplyRevert";
-import { LinearGradient } from "expo-linear-gradient";
 
 const Main = () => {
   const [colour, setColour] = useState("0400FF");
@@ -55,7 +58,7 @@ const Main = () => {
   }, [colour, openned]);
 
   useEffect(() => {
-    if (schemeOpenned === true) {
+    if (schemeOpenned) {
       API.getSchemes(colour, schemeSetting)
         .then(({ data }) => {
           const schemes = [data];
@@ -65,20 +68,10 @@ const Main = () => {
           alert("Network error, please wait and try again");
         });
     }
-  }, [schemeOpenned, schemeSetting, randomColour]);
+  }, [schemeOpenned, schemeSetting, randomColour, colour]);
 
   return (
     <View style={styles.container}>
-      <LinearGradient
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          top: 0,
-          height: 900,
-        }}
-        colors={["#242436", "transparent"]}
-      />
       {loading ? (
         <Loading loading={loading} />
       ) : (
@@ -93,7 +86,7 @@ const Main = () => {
             setRandomColour(!randomColour);
           }}
         >
-          <Text>Random</Text>
+          <FontAwesome5 name="dice" size={30} color="white" />
         </TouchableOpacity>
         <Search />
         <TouchableOpacity
@@ -104,7 +97,9 @@ const Main = () => {
             setOpenned(!openned);
           }}
         >
-          <Text>{schemeOpenned === true ? "Scheme" : "Colour"}</Text>
+          <Text style={{ color: "white", fontWeight: "bold" }}>
+            {schemeOpenned === true ? "Scheme" : "Colour"}
+          </Text>
         </TouchableOpacity>
         <Save />
         <TouchableOpacity
@@ -114,7 +109,7 @@ const Main = () => {
             setOptionsOpen(!optionsOpen);
           }}
         >
-          <Text>Options</Text>
+          <Ionicons name="options" size={30} color="white" />
         </TouchableOpacity>
         <SchemeOptions
           optionsOpen={optionsOpen}
@@ -133,11 +128,7 @@ const Main = () => {
       >
         <TouchableOpacity
           accessibilityLabel="button for locking in selected colour"
-          onPress={() => {
-            setColour(HEX);
-            setOpenned(true);
-            setSchemeOpenned(false);
-          }}
+          onPress={() => {}}
         >
           <Preview
             style={[styles.previewStyle, styles.shadow]}
@@ -157,7 +148,7 @@ const Main = () => {
           accessibilityLabel="saturation slider"
           style={[styles.sliders, styles.shadow]}
         />
-        <ApplyRevert />
+        <ApplyRevert setColour={setColour} HEX={HEX} />
       </ColorPicker>
     </View>
   );
@@ -213,35 +204,35 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   schemeButton: {
-    backgroundColor: "white",
+    backgroundColor: "#677CC9",
     width: 100,
     margin: "auto",
-    top: 5,
+
     justifyContent: "center",
     alignItems: "center",
-    height: 40,
+    height: 50,
     borderRadius: 50,
     margin: 5,
   },
   randomButton: {
-    backgroundColor: "white",
+    backgroundColor: "#323232",
     width: 60,
     margin: "auto",
-    top: 5,
+    top: 0,
     justifyContent: "center",
     alignItems: "center",
-    height: 40,
+    height: 50,
     borderRadius: 15,
     margin: 5,
   },
   schemeOptionsButton: {
-    backgroundColor: "white",
+    backgroundColor: "#323232",
     width: 60,
     margin: "auto",
-    top: 5,
+
     justifyContent: "center",
     alignItems: "center",
-    height: 40,
+    height: 50,
     borderRadius: 15,
     margin: 5,
   },

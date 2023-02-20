@@ -1,13 +1,38 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 
-const ApplyRevert = () => {
+const ApplyRevert = ({ setColour, HEX }) => {
+  const [cache, setCache] = useState([]);
+  const [revertDisabled, setRevertDisabled] = useState(true);
+
   return (
     <View style={styles.buttonContainer}>
-      <TouchableOpacity style={styles.revertButton}>
-        <Text>Revert</Text>
+      <TouchableOpacity
+        style={styles.revertButton}
+        disabled={revertDisabled}
+        onPress={() => {
+          cache.pop();
+          setColour(cache[cache.length - 1]);
+          if (cache.length === 1) {
+            setRevertDisabled(true);
+          }
+        }}
+      >
+        <Text style={{ color: revertDisabled ? "grey" : "white" }}>Revert</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.applyButton}>
+      <TouchableOpacity
+        accessibilityLabel="button for locking in selected colour"
+        onPress={() => {
+          setColour(HEX);
+          setRevertDisabled(false);
+          setCache((currentCache) => {
+            const copyCache = [...currentCache];
+            copyCache.push(HEX);
+            return copyCache;
+          });
+        }}
+        style={styles.applyButton}
+      >
         <Text style={{ color: "white" }}>Apply</Text>
       </TouchableOpacity>
     </View>

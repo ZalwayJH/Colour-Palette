@@ -19,7 +19,7 @@ const Colour = ({ colourInfo }) => {
   let colourCardHeight = 0;
 
   if (!colourInfo[0].hasOwnProperty("seed")) {
-    colourCardHeight = 370;
+    colourCardHeight = 381;
     colourInfo.map((element) => {
       luminVal.push(element.contrast.value);
       colourData.push({
@@ -27,7 +27,7 @@ const Colour = ({ colourInfo }) => {
       });
     });
   } else if (colourInfo[0].hasOwnProperty("seed")) {
-    colourCardHeight = 76.5;
+    colourCardHeight = 77;
     colourInfo.forEach((element) => {
       element.colors.map((item) => {
         luminVal.push(item.contrast.value);
@@ -78,7 +78,7 @@ const Colour = ({ colourInfo }) => {
               flex: 1,
             }}
           >
-            <Pressable
+            <TouchableOpacity
               onPress={() => {
                 setInfoCardVisibility(true);
                 setSelectedCard(hexVal[0]);
@@ -110,7 +110,7 @@ const Colour = ({ colourInfo }) => {
                   {colourName}
                 </Text>
               </View>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         );
       })}
