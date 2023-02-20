@@ -1,20 +1,20 @@
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 
-const Save = () => {
+const Search = () => {
   return (
     <View>
-      <TouchableOpacity style={styles.saveButton}>
-        <Text>Save</Text>
+      <TouchableOpacity style={styles.searchButton}>
+        <Text>search</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default Save;
+export default Search;
 
 const styles = StyleSheet.create({
-  saveButton: {
+  searchButton: {
     backgroundColor: "white",
     width: 60,
     margin: "auto",

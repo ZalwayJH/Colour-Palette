@@ -4,12 +4,14 @@ import {
   StyleSheet,
   TouchableOpacity,
   Pressable,
+  useWindowDimensions,
 } from "react-native";
 import Modal from "react-native-modal";
 import React, { useState } from "react";
 import ColourCardInfo from "./ColourCardInfo";
 
 const Colour = ({ colourInfo }) => {
+  const { width, height } = useWindowDimensions();
   const [infoCardVisibility, setInfoCardVisibility] = useState(false);
   const [selectedCard, setSelectedCard] = useState("");
   const colourData = [];
@@ -17,7 +19,7 @@ const Colour = ({ colourInfo }) => {
   let colourCardHeight = 0;
 
   if (!colourInfo[0].hasOwnProperty("seed")) {
-    colourCardHeight = 334;
+    colourCardHeight = 370;
     colourInfo.map((element) => {
       luminVal.push(element.contrast.value);
       colourData.push({
@@ -25,7 +27,7 @@ const Colour = ({ colourInfo }) => {
       });
     });
   } else if (colourInfo[0].hasOwnProperty("seed")) {
-    colourCardHeight = 70;
+    colourCardHeight = 76.5;
     colourInfo.forEach((element) => {
       element.colors.map((item) => {
         luminVal.push(item.contrast.value);
@@ -87,6 +89,7 @@ const Colour = ({ colourInfo }) => {
                   ...styles.colourCard,
                   backgroundColor: hexVal[0],
                   height: colourCardHeight,
+                  width: width,
                 }}
               >
                 <Text
@@ -95,15 +98,16 @@ const Colour = ({ colourInfo }) => {
                     color: luminVal[index],
                   }}
                 >
-                  {colourName}
+                  {hexVal}
                 </Text>
                 <Text
                   style={{
                     ...styles.colourSpec,
                     color: luminVal[index],
+                    opacity: 0.8,
                   }}
                 >
-                  {hexVal}
+                  {colourName}
                 </Text>
               </View>
             </Pressable>
@@ -133,19 +137,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     justifyContent: "center",
-    width: 380,
-    borderColor: "rgba(255,255,255, 1)",
-    borderWidth: 1,
-
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    elevation: 5,
+    // borderColor: "rgba(255,255,255, 1)",
+    // borderWidth: 1,
+    bottom: 60,
   },
   colourSpec: {
     alignSelf: "center",

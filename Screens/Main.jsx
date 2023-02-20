@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   Pressable,
+  useWindowDimensions,
 } from "react-native";
 import Save from "./Save";
 import ColorPicker, {
@@ -18,6 +19,8 @@ import * as API from "../api";
 import Colour from "./Colour";
 import SchemeOptions from "./SchemeOptions";
 import Loading from "./Loading";
+import Search from "./Search";
+import ApplyRevert from "./ApplyRevert";
 import { LinearGradient } from "expo-linear-gradient";
 
 const Main = () => {
@@ -30,6 +33,8 @@ const Main = () => {
   const [optionsOpen, setOptionsOpen] = useState(false);
   const [schemeSetting, setSchemeSetting] = useState("&mode=analogic");
   const [randomColour, setRandomColour] = useState(false);
+
+  const { width, height } = useWindowDimensions();
 
   const onSelectColour = ({ hex }) => {
     setHex(hex.slice(1));
@@ -79,10 +84,10 @@ const Main = () => {
       ) : (
         <Colour colourInfo={colourInfo} />
       )}
-      <View style={styles.buttonContainer}>
+      <View style={{ ...styles.buttonContainer, width: width }}>
         <TouchableOpacity
           accessibilityLabel="Random colour button"
-          style={styles.schemeButton}
+          style={styles.randomButton}
           onPress={() => {
             setColour(colorKit.randomRgbColor().hex().slice(1));
             setRandomColour(!randomColour);
@@ -90,7 +95,7 @@ const Main = () => {
         >
           <Text>Random</Text>
         </TouchableOpacity>
-
+        <Search />
         <TouchableOpacity
           accessibilityLabel="button for viewing schemes"
           style={styles.schemeButton}
@@ -99,11 +104,12 @@ const Main = () => {
             setOpenned(!openned);
           }}
         >
-          <Text>Scheme</Text>
+          <Text>{schemeOpenned === true ? "Scheme" : "Colour"}</Text>
         </TouchableOpacity>
+        <Save />
         <TouchableOpacity
           accessibilityLabel="button for scheme options"
-          style={styles.schemeButton}
+          style={styles.schemeOptionsButton}
           onPress={() => {
             setOptionsOpen(!optionsOpen);
           }}
@@ -125,57 +131,33 @@ const Main = () => {
         value="blue"
         onComplete={onSelectColour}
       >
-        <View
-          style={{
-            justifyContent: "center",
-            backgroundColor: "rgba(83, 85, 92, 1)",
-            paddingLeft: 20,
-            paddingRight: 20,
-            width: 380,
-            alignSelf: "center",
-            borderRadius: 15,
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-
-            elevation: 5,
+        <TouchableOpacity
+          accessibilityLabel="button for locking in selected colour"
+          onPress={() => {
+            setColour(HEX);
+            setOpenned(true);
+            setSchemeOpenned(false);
           }}
         >
-          <TouchableOpacity
-            accessibilityLabel="button for locking in selected colour"
-            onPress={() => {
-              setColour(HEX);
-              setOpenned(true);
-              setSchemeOpenned(false);
-            }}
-          >
-            <Text style={{ alignSelf: "center", color: "white" }}>
-              Press Here to lock in colour
-            </Text>
-            <Preview
-              style={[styles.previewStyle, styles.shadow]}
-              colorFormat="none"
-              hideInitialColor
-            />
-          </TouchableOpacity>
-          <HueSlider
-            accessibilityLabel="colour slider"
-            style={[styles.sliders, styles.shadow]}
+          <Preview
+            style={[styles.previewStyle, styles.shadow]}
+            colorFormat="none"
+            hideInitialColor
           />
-          <BrightnessSlider
-            accessibilityLabel="brightness slider"
-            style={[styles.sliders, styles.shadow]}
-          />
-          <SaturationSlider
-            accessibilityLabel="saturation slider"
-            style={[styles.sliders, styles.shadow]}
-          />
-          <Save />
-        </View>
+        </TouchableOpacity>
+        <HueSlider
+          accessibilityLabel="colour slider"
+          style={[styles.sliders, styles.shadow]}
+        />
+        <BrightnessSlider
+          accessibilityLabel="brightness slider"
+          style={[styles.sliders, styles.shadow]}
+        />
+        <SaturationSlider
+          accessibilityLabel="saturation slider"
+          style={[styles.sliders, styles.shadow]}
+        />
+        <ApplyRevert />
       </ColorPicker>
     </View>
   );
@@ -189,14 +171,15 @@ const styles = StyleSheet.create({
     paddingBottom: 0,
     width: "100%",
     margin: "auto",
-    backgroundColor: "#14142b",
+    backgroundColor: "#2E2E2E",
   },
   colourPicker: {
+    top: 20,
     width: "75%",
     justifyContent: "center",
     marginBottom: 0,
     paddingBottom: 0,
-    marginTop: 50,
+    marginTop: 20,
   },
   sliders: {
     borderRadius: 15,
@@ -233,33 +216,44 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     width: 100,
     margin: "auto",
-    height: 30,
+    top: 5,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
+    height: 40,
+    borderRadius: 50,
+    margin: 5,
+  },
+  randomButton: {
+    backgroundColor: "white",
+    width: 60,
+    margin: "auto",
+    top: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    height: 40,
     borderRadius: 15,
     margin: 5,
   },
   schemeOptionsButton: {
     backgroundColor: "white",
-    width: 100,
+    width: 60,
     margin: "auto",
-    height: 30,
+    top: 5,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
+    height: 40,
     borderRadius: 15,
-    marginLeft: 20,
+    margin: 5,
   },
   buttonContainer: {
     flex: 0,
-    height: 70,
-    top: 80,
-    marginTop: 25,
-    width: 350,
+    height: 60,
+    top: 50,
+
     margin: "auto",
     justifyContent: "center",
     alignSelf: "center",
     flexDirection: "row",
+    backgroundColor: "#1A1A1A",
   },
 });
