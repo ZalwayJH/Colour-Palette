@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  SafeAreaView,
   StyleSheet,
   View,
   Text,
@@ -77,6 +78,7 @@ const Main = () => {
       ) : (
         <Colour colourInfo={colourInfo} />
       )}
+
       <View style={{ ...styles.buttonContainer, width: width }}>
         <TouchableOpacity
           accessibilityLabel="Random colour button"
@@ -88,7 +90,9 @@ const Main = () => {
         >
           <FontAwesome5 name="dice" size={30} color="white" />
         </TouchableOpacity>
-        <Search />
+
+        <Search setColour={setColour} />
+
         <TouchableOpacity
           accessibilityLabel="button for viewing schemes"
           style={styles.schemeButton}
@@ -165,8 +169,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#2E2E2E",
   },
   colourPicker: {
+    flex: 1,
     top: 20,
-    width: "75%",
+    width: 350,
     justifyContent: "center",
     marginBottom: 0,
     paddingBottom: 0,

@@ -18,7 +18,9 @@ const ApplyRevert = ({ setColour, HEX }) => {
           }
         }}
       >
-        <Text style={{ color: revertDisabled ? "grey" : "white" }}>Revert</Text>
+        <Text style={{ color: revertDisabled ? "grey" : "white" }}>
+          Previous
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity
         accessibilityLabel="button for locking in selected colour"
