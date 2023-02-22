@@ -75,7 +75,7 @@ const Search = ({ setColour }) => {
         onBackdropPress={() => {
           setSearchOpen(false);
         }}
-        hasBackdrop={false}
+        backdropOpacity={0}
       >
         <View style={{ ...styles.searchBar, width: width }}>
           <TextInput

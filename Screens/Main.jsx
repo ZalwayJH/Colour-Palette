@@ -43,6 +43,7 @@ const Main = () => {
   const onSelectColour = ({ hex }) => {
     setHex(hex.slice(1));
   };
+  // NavigationBar.setBackgroundColor("black");
 
   useEffect(() => {
     if (openned) {
@@ -130,16 +131,12 @@ const Main = () => {
         value="blue"
         onComplete={onSelectColour}
       >
-        <TouchableOpacity
-          accessibilityLabel="button for locking in selected colour"
-          onPress={() => {}}
-        >
-          <Preview
-            style={[styles.previewStyle, styles.shadow]}
-            colorFormat="none"
-            hideInitialColor
-          />
-        </TouchableOpacity>
+        <Preview
+          style={[styles.previewStyle, styles.shadow]}
+          colorFormat="none"
+          hideInitialColor
+        />
+
         <HueSlider
           accessibilityLabel="colour slider"
           style={[styles.sliders, styles.shadow]}
