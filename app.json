@@ -1,5 +1,15 @@
 {
   "expo": {
+    "plugins": [
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow colourPalette to access your photos.",
+          "savePhotosPermission": "Allow colourPalette to save photos.",
+          "isAccessMediaLocationEnabled": true
+        }
+      ]
+    ],
     "name": "colour-palette",
     "slug": "colour-palette",
     "version": "1.0.0",
@@ -19,10 +29,16 @@
       "supportsTablet": true
     },
     "android": {
+      "permissions": [
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_EXTERNAL_STORAGE",
+        "READ_MEDIA_IMAGES"
+      ],
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#FFFFFF",
+        "requestLegacyExternalStorage": "true"
       },
       "package": "com.joelzh.colourpalette"
     },

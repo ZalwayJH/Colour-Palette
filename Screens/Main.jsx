@@ -37,6 +37,7 @@ const Main = () => {
   const [optionsOpen, setOptionsOpen] = useState(false);
   const [schemeSetting, setSchemeSetting] = useState("&mode=analogic");
   const [randomColour, setRandomColour] = useState(false);
+  const [saveImage, setSaveImage] = useState(false);
 
   const { width, height } = useWindowDimensions();
 
@@ -77,7 +78,11 @@ const Main = () => {
       {loading ? (
         <Loading loading={loading} />
       ) : (
-        <Colour colourInfo={colourInfo} />
+        <Colour
+          colourInfo={colourInfo}
+          saveImage={saveImage}
+          setSaveImage={setSaveImage}
+        />
       )}
 
       <View style={{ ...styles.buttonContainer, width: width }}>
@@ -106,7 +111,7 @@ const Main = () => {
             {schemeOpenned === true ? "Scheme" : "Colour"}
           </Text>
         </TouchableOpacity>
-        <Save />
+        <Save setSaveImage={setSaveImage} />
         <TouchableOpacity
           accessibilityLabel="button for scheme options"
           style={styles.schemeOptionsButton}
@@ -127,7 +132,7 @@ const Main = () => {
         style={styles.colourPicker}
         sliderThickness={30}
         thumbSize={40}
-        thumbShape="pill"
+        thumbShape="circle"
         value="blue"
         onComplete={onSelectColour}
       >
