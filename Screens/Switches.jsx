@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Switch } from "react-native";
-import React, { useState } from "react";
+import React from "react";
 
 const Switches = ({
   setSchemeSetting,
@@ -59,6 +59,7 @@ const Switches = ({
       <Text style={{ ...styles.schemeNames, paddingRight: 125 }}>
         Monochrome
       </Text>
+      <View style={styles.separator}></View>
       <Switch
         style={[
           styles.schemeSwitches,
@@ -73,6 +74,7 @@ const Switches = ({
         value={analogic}
       />
       <Text style={{ ...styles.schemeNames, paddingRight: 160 }}>Analogic</Text>
+      <View style={styles.separator}></View>
       <Switch
         style={[
           styles.schemeSwitches,
@@ -89,6 +91,7 @@ const Switches = ({
       <Text style={{ ...styles.schemeNames, paddingRight: 130 }}>
         Complement
       </Text>
+      <View style={styles.separator}></View>
       <Switch
         style={[
           styles.schemeSwitches,
@@ -103,8 +106,9 @@ const Switches = ({
         value={analogicComplement}
       />
       <Text style={{ ...styles.schemeNames, paddingRight: 68 }}>
-        Analogic-Complement
+        Analogic Complement
       </Text>
+      <View style={styles.separator}></View>
     </View>
   );
 };
@@ -123,18 +127,25 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     margin: 0,
     bottom: 20,
-    borderColor: "grey",
-    borderWidth: 0,
-    borderBottomWidth: 2,
     padding: 5,
     // borderRadius: 14,
     paddingLeft: 40,
     color: "white",
     marginLeft: 60,
+    fontSize: 18,
   },
   schemeSwitches: {
     flex: 3,
     top: 10,
-    right: 10,
+    right: 30,
+  },
+  separator: {
+    backgroundColor: "#2E2E2E",
+    height: 3,
+    width: 350,
+    alignSelf: "center",
+    justifyContent: "center",
+    left: 50,
+    bottom: 20,
   },
 });

@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import React from "react";
+import CopyToClipboard from "./CopyToClipboard";
 
 const ColourCardInfo = ({ selectedCard, colourInfo }) => {
   const colourCardSpecs = [];
@@ -10,20 +11,13 @@ const ColourCardInfo = ({ selectedCard, colourInfo }) => {
   } else if (!colourInfo[0].hasOwnProperty("seed")) {
     colourCardSpecs.push(colourInfo[0]);
   }
-
   return (
     <View>
       {colourCardSpecs.map((item, index) => {
+        const colourSpec = ["hex", "rgb", "cmyk", "hsv"];
         if (item.hex.value === selectedCard) {
           return (
-            <View
-              key={index}
-              style={
-                {
-                  // alignItems: "center",
-                }
-              }
-            >
+            <View key={index}>
               <View
                 style={{
                   height: 220,
@@ -32,6 +26,7 @@ const ColourCardInfo = ({ selectedCard, colourInfo }) => {
                   justifyContent: "center",
                   alignItems: "center",
                   alignSelf: "center",
+                  bottom: 5,
                 }}
               >
                 <Text
@@ -39,26 +34,15 @@ const ColourCardInfo = ({ selectedCard, colourInfo }) => {
                     color: item.contrast.value,
                     fontWeight: "bold",
                     opacity: 0.8,
+                    fontSize: 18,
                   }}
                 >
                   {item.name.value}
                 </Text>
               </View>
-              <Text style={styles.colourSpecInfo}>
-                {`Hex          ${item.hex.value}`}
-              </Text>
-              <Text style={styles.colourSpecInfo}>
-                {`Rgb          ${item.rgb.value}`}
-              </Text>
-              <Text style={styles.colourSpecInfo}>
-                {`Cymk      ${item.cmyk.value}`}
-              </Text>
-              <Text style={styles.colourSpecInfo}>
-                {`Hsv          ${item.hsv.value}`}
-              </Text>
-              <Text style={styles.colourSpecInfo}>
-                {`XYZ         ${item.XYZ.value}`}
-              </Text>
+              {colourSpec.map((element, i) => {
+                return <CopyToClipboard key={i} item={item[element].value} />;
+              })}
             </View>
           );
         }
@@ -74,6 +58,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     // borderColor: "black",
     // borderBottomWidth: 0.2,
+    color: "white",
     marginLeft: 0.5,
     marginRight: 0.5,
     opacity: 0.7,

@@ -38,13 +38,13 @@ const Main = () => {
   const [schemeSetting, setSchemeSetting] = useState("&mode=analogic");
   const [randomColour, setRandomColour] = useState(false);
   const [saveImage, setSaveImage] = useState(false);
+  const [message, setMessage] = useState(true);
 
   const { width, height } = useWindowDimensions();
 
   const onSelectColour = ({ hex }) => {
     setHex(hex.slice(1));
   };
-  // NavigationBar.setBackgroundColor("black");
 
   useEffect(() => {
     if (openned) {
@@ -107,7 +107,7 @@ const Main = () => {
             setOpenned(!openned);
           }}
         >
-          <Text style={{ color: "white", fontWeight: "bold" }}>
+          <Text style={{ color: "white", fontWeight: "bold", fontSize: 15 }}>
             {schemeOpenned === true ? "Scheme" : "Colour"}
           </Text>
         </TouchableOpacity>

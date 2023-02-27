@@ -17,6 +17,9 @@ const SchemeOptions = ({ optionsOpen, setOptionsOpen, setSchemeSetting }) => {
         animationIn="slideInRight"
         animationOut="slideOutRight"
         backdropTransitionOutTiming={0}
+        onBackdropPress={() => {
+          setOptionsOpen(false);
+        }}
         onBackButtonPress={() => {
           setOptionsOpen(false);
         }}
@@ -34,17 +37,17 @@ const SchemeOptions = ({ optionsOpen, setOptionsOpen, setSchemeSetting }) => {
             analogicComplement={analogicComplement}
             setAnalogicComplement={setAnalogicComplement}
           />
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={() => {
+              setOptionsOpen(false);
+            }}
+          >
+            <View>
+              <Text style={{ color: "white", fontSize: 18 }}>Back</Text>
+            </View>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.closeButton}
-          onPress={() => {
-            setOptionsOpen(false);
-          }}
-        >
-          <View>
-            <Text>Back</Text>
-          </View>
-        </TouchableOpacity>
       </Modal>
     </View>
   );
@@ -70,19 +73,21 @@ const styles = StyleSheet.create({
   },
   optionsModal: {
     flex: 0,
-    backgroundColor: "rgba(75, 75, 75, 1)",
-    height: 250,
-    width: 350,
-    borderRadius: 15,
+    backgroundColor: "#3E3E3E",
+    height: 320,
+    width: 390,
+    borderRadius: 10,
   },
   closeButton: {
-    backgroundColor: "white",
-    width: 75,
+    backgroundColor: "#5F5F5F",
+    width: 300,
     margin: "auto",
     height: 30,
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: "center",
     marginTop: 10,
-    borderRadius: 15,
+    marginBottom: 10,
+    borderRadius: 5,
   },
 });

@@ -7,6 +7,7 @@ import {
   useWindowDimensions,
   PermissionsAndroid,
   Share,
+  Alert,
 } from "react-native";
 import Modal from "react-native-modal";
 import * as MediaLibrary from "expo-media-library";
@@ -27,6 +28,7 @@ const Colour = ({ colourInfo, saveImage, setSaveImage }) => {
   async function captureViewShot() {
     const imageURI = await viewRef.current.capture();
     const res = await MediaLibrary.requestPermissionsAsync();
+
     if (res.granted) {
       MediaLibrary.saveToLibraryAsync(imageURI);
     }
@@ -83,8 +85,8 @@ const Colour = ({ colourInfo, saveImage, setSaveImage }) => {
         <View
           style={{
             flex: 0,
-            backgroundColor: "white",
-            height: 350,
+            backgroundColor: "#2E2E2E",
+            height: 400,
             width: 350,
             borderRadius: 2,
             alignItems: "center",
