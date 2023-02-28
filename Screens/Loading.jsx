@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, Animated } from "react-native";
-import React, { useRef } from "react";
+import { StyleSheet, View } from "react-native";
+import React from "react";
 import CircularProgress from "react-native-circular-progress-indicator";
 
 const Loading = ({ loading }) => {

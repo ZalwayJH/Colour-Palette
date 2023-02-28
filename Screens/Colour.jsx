@@ -3,11 +3,7 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Pressable,
   useWindowDimensions,
-  PermissionsAndroid,
-  Share,
-  Alert,
 } from "react-native";
 import Modal from "react-native-modal";
 import * as MediaLibrary from "expo-media-library";
@@ -17,7 +13,7 @@ import ViewShot from "react-native-view-shot";
 import ColourCardInfo from "./ColourCardInfo";
 
 const Colour = ({ colourInfo, saveImage, setSaveImage }) => {
-  const { width, height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const [infoCardVisibility, setInfoCardVisibility] = useState(false);
   const [selectedCard, setSelectedCard] = useState("");
   const colourData = [];
@@ -158,8 +154,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     justifyContent: "center",
-    // borderColor: "rgba(255,255,255, 1)",
-    // borderWidth: 1,
   },
   colourSpec: {
     alignSelf: "center",

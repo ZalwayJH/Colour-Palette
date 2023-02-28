@@ -13,15 +13,7 @@ const CopyToClipboard = ({ item }) => {
   };
 
   return (
-    <View
-      style={{
-        justifyContent: "space-between",
-        flexDirection: "row",
-        marginTop: 5,
-        borderBottomWidth: 2,
-        borderColor: "#191919",
-      }}
-    >
+    <View style={styles.saveToClipboardView}>
       <Text
         style={{
           color: "white",
@@ -35,14 +27,7 @@ const CopyToClipboard = ({ item }) => {
         onPress={() => {
           saveToClipboard(item);
         }}
-        style={{
-          borderRadius: 5,
-          backgroundColor: "#3F3F3F",
-          height: 25,
-          justifyContent: "center",
-          width: 80,
-          alignItems: "center",
-        }}
+        style={styles.copyButtons}
         title="copy"
       >
         <Text style={{ color: "white" }}>COPY</Text>
@@ -56,11 +41,24 @@ export default CopyToClipboard;
 const styles = StyleSheet.create({
   colourSpecInfo: {
     fontWeight: "bold",
-
     color: "white",
     marginLeft: 0.5,
     marginRight: 0.5,
     opacity: 0.7,
   },
-  flatList: {},
+  saveToClipboardView: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    marginTop: 5,
+    borderBottomWidth: 2,
+    borderColor: "#191919",
+  },
+  copyButtons: {
+    borderRadius: 5,
+    backgroundColor: "#3F3F3F",
+    height: 25,
+    justifyContent: "center",
+    width: 80,
+    alignItems: "center",
+  },
 });

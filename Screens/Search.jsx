@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: "center",
     alignSelf: "center",
-    // borderRadius: 50,
+
     padding: 10,
     color: "white",
     fontWeight: 18,

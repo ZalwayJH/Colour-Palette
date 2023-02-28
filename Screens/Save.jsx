@@ -4,7 +4,6 @@ import {
   View,
   TouchableOpacity,
   Pressable,
-  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import Modal from "react-native-modal";
@@ -12,9 +11,35 @@ import { Ionicons, Feather } from "@expo/vector-icons";
 
 const Save = ({ setSaveImage }) => {
   const [saveModal, setSaveModal] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(false);
+
+  const timeOutMessage = () => {
+    setSuccessMessage(false);
+  };
 
   return (
     <View>
+      <Modal
+        isVisible={successMessage}
+        animationIn="fadeIn"
+        animationOut="fadeOut"
+        backdropTransitionOutTiming={0}
+        backdropOpacity={0}
+        onBackdropPress={() => {
+          setSuccessMessage(false);
+        }}
+      >
+        <View style={styles.saveMessage}>
+          <Text
+            style={{
+              fontSize: 16,
+              color: "white",
+            }}
+          >
+            Image successfully saved to gallery
+          </Text>
+        </View>
+      </Modal>
       <TouchableOpacity
         style={styles.saveMenuButton}
         onPress={() => {
@@ -24,13 +49,7 @@ const Save = ({ setSaveImage }) => {
         <Ionicons name="ios-save" size={30} color="white" />
       </TouchableOpacity>
       <Modal
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          alignSelf: "center",
-          top: 30,
-        }}
+        style={styles.saveModal}
         isVisible={saveModal}
         animationIn="slideInUp"
         animationOut="slideOutDown"
@@ -43,24 +62,28 @@ const Save = ({ setSaveImage }) => {
         }}
         backdropOpacity={0.67}
       >
-        <View>
+        <View style={styles.saveButtonToGallery}>
           <Pressable
-            style={styles.saveToGalleryButton}
+            android_ripple={{ color: "white" }}
+            style={styles.savePressable}
             onPress={() => {
               setSaveImage(true);
               setSaveModal(false);
+              setSuccessMessage(true);
+              setTimeout(timeOutMessage, 3000);
             }}
           >
             <Text style={styles.buttonText}>Save to gallery</Text>
             <Feather name="download" size={30} color="white" />
           </Pressable>
         </View>
-        <View>
+        <View style={styles.cancelButton}>
           <Pressable
+            android_ripple={{ color: "white" }}
             onPress={() => {
               setSaveModal(false);
             }}
-            style={styles.cancelButton}
+            style={{ width: 390, alignItems: "center" }}
           >
             <Text style={{ ...styles.buttonText, color: "#3483FA" }}>
               Cancel
@@ -86,19 +109,14 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     margin: 5,
   },
-  saveToGalleryButton: {
-    width: 392,
-    height: 60,
-    margin: 2,
+  saveModal: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 10,
-    backgroundColor: "#3F3F3F",
-    flexDirection: "row",
-    top: 290,
-    borderColor: "#323232",
-    borderWidth: 4,
+    alignSelf: "center",
+    top: 30,
   },
+
   buttonText: {
     color: "white",
     fontWeight: "bold",
@@ -106,12 +124,40 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   cancelButton: {
-    backgroundColor: "#3F3F3F",
-    width: 400,
-    height: 50,
+    borderRadius: 10,
+    overflow: "hidden",
+    backgroundColor: "#3f3f3f",
     top: 300,
-    justifyContent: "center",
+    width: 390,
+    margin: 0,
+  },
+  saveButtonToGallery: {
+    borderRadius: 10,
+    overflow: "hidden",
+    backgroundColor: "#3f3f3f",
+    top: 290,
+    width: 390,
+    margin: 0,
+  },
+  savePressable: {
+    width: 390,
+    height: 60,
     alignItems: "center",
+    alignSelf: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    borderColor: "#323232",
+    borderWidth: 3,
+    borderRadius: 10,
+  },
+  saveMessage: {
+    backgroundColor: "rgba(50, 50,50, 0.6)",
+    width: 300,
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 40,
     borderRadius: 14,
+    bottom: 330,
   },
 });

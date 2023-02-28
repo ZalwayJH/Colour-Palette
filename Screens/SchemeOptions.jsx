@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, TouchableOpacity, Switch } from "react-native";
-import { useState, useEffect } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { useState } from "react";
 import Modal from "react-native-modal";
 import React from "react";
 import Switches from "./Switches";

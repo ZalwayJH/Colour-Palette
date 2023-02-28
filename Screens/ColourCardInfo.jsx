@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import CopyToClipboard from "./CopyToClipboard";
 
@@ -19,15 +19,7 @@ const ColourCardInfo = ({ selectedCard, colourInfo }) => {
           return (
             <View key={index}>
               <View
-                style={{
-                  height: 220,
-                  width: 330,
-                  backgroundColor: selectedCard,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  alignSelf: "center",
-                  bottom: 5,
-                }}
+                style={{ ...styles.colourCard, backgroundColor: selectedCard }}
               >
                 <Text
                   style={{
@@ -56,11 +48,18 @@ export default ColourCardInfo;
 const styles = StyleSheet.create({
   colourSpecInfo: {
     fontWeight: "bold",
-    // borderColor: "black",
-    // borderBottomWidth: 0.2,
     color: "white",
     marginLeft: 0.5,
     marginRight: 0.5,
     opacity: 0.7,
+  },
+  colourCard: {
+    height: 220,
+    width: 330,
+
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    bottom: 5,
   },
 });

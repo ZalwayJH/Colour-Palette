@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
-  SafeAreaView,
   StyleSheet,
   View,
   Text,
   TouchableOpacity,
-  Pressable,
   useWindowDimensions,
 } from "react-native";
 import Save from "./Save";
@@ -38,9 +36,8 @@ const Main = () => {
   const [schemeSetting, setSchemeSetting] = useState("&mode=analogic");
   const [randomColour, setRandomColour] = useState(false);
   const [saveImage, setSaveImage] = useState(false);
-  const [message, setMessage] = useState(true);
 
-  const { width, height } = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const onSelectColour = ({ hex }) => {
     setHex(hex.slice(1));
