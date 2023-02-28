@@ -71,7 +71,7 @@ const Main = () => {
   }, [schemeOpenned, schemeSetting, randomColour, colour]);
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, width: width }}>
       {loading ? (
         <Loading loading={loading} />
       ) : (
@@ -163,7 +163,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingBottom: 0,
-    width: "100%",
     margin: "auto",
     backgroundColor: "#2E2E2E",
   },

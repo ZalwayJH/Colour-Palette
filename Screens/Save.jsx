@@ -70,7 +70,7 @@ const Save = ({ setSaveImage }) => {
               setSaveImage(true);
               setSaveModal(false);
               setSuccessMessage(true);
-              setTimeout(timeOutMessage, 3000);
+              setTimeout(timeOutMessage, 2000);
             }}
           >
             <Text style={styles.buttonText}>Save to gallery</Text>
@@ -151,13 +151,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   saveMessage: {
-    backgroundColor: "rgba(50, 50,50, 0.6)",
-    width: 300,
+    backgroundColor: "rgba(50, 50,50, 0.8)",
+    width: 320,
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
-    height: 40,
-    borderRadius: 14,
+    height: 50,
+    borderRadius: 50,
     bottom: 330,
   },
 });

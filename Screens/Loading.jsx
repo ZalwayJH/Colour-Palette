@@ -37,15 +37,11 @@ const styles = StyleSheet.create({
     marginBottom: 80,
   },
   background: {
-    width: "100%",
-    height: "100%",
     borderRadius: 300 / 2,
     borderWidth: 4,
     opacity: 0.25,
   },
   progress: {
-    width: "100%",
-    height: "100%",
     borderRadius: 300 / 2,
     borderLeftColor: "transparent",
     borderRightColor: "transparent",
